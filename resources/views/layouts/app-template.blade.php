@@ -84,7 +84,7 @@
 
 </head>
 
-<body>
+<body class="bg-white text-black dark:bg-gray-900 dark:text-white">
     <!-- Fullscreen Modern Loader -->
     <div id="pageLoader"
         class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-[9999] overflow-hidden">
