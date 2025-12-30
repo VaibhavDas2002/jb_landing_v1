@@ -19,12 +19,8 @@ Route::get('/about', function () {
 });
 
 
-Route::get('map', function () {
-    return view('pension/map');
-});
-Route::get('/pension/map/vectors', [MapController::class, 'getVectors']);
-Route::get('/pension/map/stats', [MapController::class, 'getStats']);
-Route::get('portlet', [MapController::class, 'portlet'])->name('portlet');
+
+Route::get('portlet', [MapController::class, 'index'])->name('portlet');
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
 Route::get('scheme_info', [HomeController::class, 'scheme_index'])->name('scheme_info');
