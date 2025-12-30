@@ -1,17 +1,3 @@
-/* ===============================
-   Preline UI (MUST BE FIRST)
-================================ */
-/* @import "./node_modules/preline/variants.css"; */
-@source "./node_modules/preline/dist/*.js";
-
-/* ===============================
-   Tailwind Core
-================================ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* ===============================
-   Tailwind Plugins
-================================ */
-@plugin "@tailwindcss/forms";

@@ -17,7 +17,7 @@ class MapController extends Controller
 
 
 
-    public function wbDistrictCount()
+    public function wbDistrictCount(Request $request)
     {
         return DB::table('pension.beneficiaries')
             ->select('created_by_dist_code as district_code', DB::raw('count(*) total'))

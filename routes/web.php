@@ -21,6 +21,7 @@ Route::get('/about', function () {
 
 
 Route::get('portlet', [MapController::class, 'index'])->name('portlet');
+Route::post('/map-district-count', [MapController::class, 'wbDistrictCount'])->name('map.district.count');
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
 Route::get('scheme_info', [HomeController::class, 'scheme_index'])->name('scheme_info');

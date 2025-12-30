@@ -85,11 +85,11 @@
 
             <!-- ================= GRID LAYOUT ================= -->
             <div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-[auto_650px_auto] gap-8" style="
-                                                            grid-template-areas:
-                                                                'cards cards cards'
-                                                                'map map info'
-                                                                'full full full';
-                                                        ">
+                                                                                        grid-template-areas:
+                                                                                            'cards cards cards'
+                                                                                            'map map info'
+                                                                                            'full full full';
+                                                                                    ">
 
                 <!-- ================= STATS CARDS ================= -->
                 <div style="grid-area: cards;">
@@ -202,26 +202,53 @@
 
 @push('scripts')
     <script>
+
+
+
+        $(document).ready(function () {
+            initMap();
+        });
         $(function () {
             let districtData = {};
 
             async function initMap() {
                 try {
-                    // Logic preserved exactly as original
-                    districtData = await $.get('/api/map/wb/district-count');
+                    districtData = await $.ajax({
+                        url: "{{ route('map.district.count') }}",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            // optional filters if needed later
+                            // year: 2025,
+                            // scheme_id: 1
+                        }
+                    });
+
                     $('#loading').hide();
-                    $('#map-svg-wrapper').removeClass('hidden').addClass('flex');
+                    $('#map-svg-wrapper')
+                        .removeClass('hidden')
+                        .addClass('flex');
+
                     bindDistricts();
                     updateStats();
-                } catch {
+
+                } catch (xhr) {
+                    console.error(xhr.responseText);
+
                     $('#loading').html(`
-                                                                            <div class="text-center">
-                                                                                <i class="fa-solid fa-triangle-exclamation text-red-500 text-3xl mb-2"></i>
-                                                                                <p class="text-red-600 font-bold">Failed to load district data</p>
-                                                                            </div>
-                                                                        `);
+                                                <div class="text-center">
+                                                    <i class="fa-solid fa-triangle-exclamation text-red-500 text-3xl mb-2"></i>
+                                                    <p class="text-red-600 font-bold">
+                                                        Failed to load district data
+                                                    </p>
+                                                </div>
+                                            `);
                 }
             }
+
+
+
 
             function bindDistricts() {
                 $('.district').each(function () {
@@ -259,32 +286,32 @@
                 // Restructured HTML for better Right-Panel UI
                 $('#district-info').fadeOut(150, function () {
                     $(this).html(`
-                                                                            <div class="w-full">
-                                                                                <div class="text-center mb-8">
-                                                                                    <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">District Selected</span>
-                                                                                    <h4 class="text-3xl font-black text-gray-900 mt-4">${name}</h4>
-                                                                                    <div class="w-12 h-1 bg-indigo-500 mx-auto mt-4 rounded-full"></div>
-                                                                                </div>
+                                                                                                            <div class="w-full">
+                                                                                                                <div class="text-center mb-8">
+                                                                                                                    <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">District Selected</span>
+                                                                                                                    <h4 class="text-3xl font-black text-gray-900 mt-4">${name}</h4>
+                                                                                                                    <div class="w-12 h-1 bg-indigo-500 mx-auto mt-4 rounded-full"></div>
+                                                                                                                </div>
 
-                                                                                <div class="space-y-4">
-                                                                                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                                                                                        <p class="text-gray-500 text-xs font-bold uppercase mb-1">Total Beneficiaries</p>
-                                                                                        <p class="text-4xl font-black text-indigo-600">${count.toLocaleString()}</p>
-                                                                                    </div>
+                                                                                                                <div class="space-y-4">
+                                                                                                                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                                                                                                                        <p class="text-gray-500 text-xs font-bold uppercase mb-1">Total Beneficiaries</p>
+                                                                                                                        <p class="text-4xl font-black text-indigo-600">${count.toLocaleString()}</p>
+                                                                                                                    </div>
 
-                                                                                    <div class="grid grid-cols-2 gap-4">
-                                                                                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 text-left">
-                                                                                            <p class="text-gray-500 text-[10px] font-bold uppercase">State Share</p>
-                                                                                            <p class="text-xl font-bold text-gray-800">${pct}%</p>
-                                                                                        </div>
-                                                                                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 text-left">
-                                                                                            <p class="text-gray-500 text-[10px] font-bold uppercase">Status</p>
-                                                                                            <p class="text-xl font-bold text-green-600 truncate">Active</p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        `).fadeIn(300);
+                                                                                                                    <div class="grid grid-cols-2 gap-4">
+                                                                                                                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 text-left">
+                                                                                                                            <p class="text-gray-500 text-[10px] font-bold uppercase">State Share</p>
+                                                                                                                            <p class="text-xl font-bold text-gray-800">${pct}%</p>
+                                                                                                                        </div>
+                                                                                                                        <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 text-left">
+                                                                                                                            <p class="text-gray-500 text-[10px] font-bold uppercase">Status</p>
+                                                                                                                            <p class="text-xl font-bold text-green-600 truncate">Active</p>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        `).fadeIn(300);
                 });
             }
 
@@ -316,14 +343,14 @@
 
             function showTooltip(e, name, count) {
                 $('#tooltip-content').html(`
-                                <div class="font-bold border-b border-gray-700 pb-1 mb-1">
-                                    ${name}
-                                </div>
-                                <div class="text-indigo-400">
-                                    Beneficiaries:
-                                    <span class="text-white">${count.toLocaleString()}</span>
-                                </div>
-                            `);
+                                                                <div class="font-bold border-b border-gray-700 pb-1 mb-1">
+                                                                    ${name}
+                                                                </div>
+                                                                <div class="text-indigo-400">
+                                                                    Beneficiaries:
+                                                                    <span class="text-white">${count.toLocaleString()}</span>
+                                                                </div>
+                                                            `);
 
                 $('#custom-tooltip').show();
                 moveTooltip(e); // 🔥 important
@@ -343,14 +370,14 @@
             $('#reset-btn').on('click', () => {
                 $('.district').removeClass('selected');
                 $('#district-info').html(`
-                                                                        <div class="p-8 bg-gray-50 rounded-full mb-4">
-                                                                            <i class="fa-solid fa-hand-pointer text-4xl text-gray-300"></i>
-                                                                        </div>
-                                                                        <h4 class="text-gray-800 font-bold text-lg">No Selection</h4>
-                                                                        <p class="text-gray-500 max-w-xs mt-2">
-                                                                            Please click on a district within the map to view specific beneficiary statistics.
-                                                                        </p>
-                                                                    `);
+                                                                                                        <div class="p-8 bg-gray-50 rounded-full mb-4">
+                                                                                                            <i class="fa-solid fa-hand-pointer text-4xl text-gray-300"></i>
+                                                                                                        </div>
+                                                                                                        <h4 class="text-gray-800 font-bold text-lg">No Selection</h4>
+                                                                                                        <p class="text-gray-500 max-w-xs mt-2">
+                                                                                                            Please click on a district within the map to view specific beneficiary statistics.
+                                                                                                        </p>
+                                                                                                    `);
             });
 
             initMap();

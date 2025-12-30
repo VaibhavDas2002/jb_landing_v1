@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-
 const fs = require("fs");
 const path = require("path");
 
@@ -36,11 +35,8 @@ function extractColors() {
                 `bg-${color}-${lvl}`,
                 `text-${color}-${lvl}`,
                 `border-${color}-${lvl}`,
-                `from-${color}-${lvl}`,
-                `to-${color}-${lvl}`,
                 `hover:bg-${color}-${lvl}`,
-                `hover:text-${color}-${lvl}`,
-                `hover:border-${color}-${lvl}`
+                `hover:text-${color}-${lvl}`
             );
         });
     });
@@ -55,14 +51,11 @@ module.exports = {
         "./resources/**/*.js",
         "./resources/**/*.vue",
         "./resources/**/*.ts",
-        "./node_modules/preline/dist/*.js", // ✅ IMPORTANT
+        "./node_modules/preline/dist/*.js",
     ],
-
     safelist: extractColors(),
-
     theme: {
         extend: {},
     },
-
-    plugins: [],
+    plugins: [], // ✅ EMPTY
 };
