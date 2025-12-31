@@ -34,6 +34,9 @@ Route::get('notifications', [NotificationController::class, 'index'])->name('not
 Route::post('/notifications/datatable', [NotificationController::class, 'datatable'])->name('notifications.datatable');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/scheme-wise-applications', [DashboardController::class, 'schemeWiseApplications'])->name('dashboard.schemeWiseApplications');
+Route::get('/dashboard/district-wise-beneficiaries', [DashboardController::class, 'districtWiseBeneficiaries'])->name('dashboard.districtWiseBeneficiaries');
+
 
 Route::get('ben-details/{id}', [BeneficiarySearchController::class, 'ben_details'])->name('ben-details');
 

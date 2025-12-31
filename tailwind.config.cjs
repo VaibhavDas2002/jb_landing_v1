@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
+/* 🔹 Dynamic color extraction from Laravel config */
 function extractColors() {
     const filePath = path.resolve("config/constants.php");
     if (!fs.existsSync(filePath)) return [];
@@ -35,8 +36,11 @@ function extractColors() {
                 `bg-${color}-${lvl}`,
                 `text-${color}-${lvl}`,
                 `border-${color}-${lvl}`,
+                `from-${color}-${lvl}`,
+                `to-${color}-${lvl}`,
                 `hover:bg-${color}-${lvl}`,
-                `hover:text-${color}-${lvl}`
+                `hover:text-${color}-${lvl}`,
+                `hover:border-${color}-${lvl}`
             );
         });
     });
@@ -46,6 +50,7 @@ function extractColors() {
 
 module.exports = {
     darkMode: "class",
+
     content: [
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
@@ -53,9 +58,12 @@ module.exports = {
         "./resources/**/*.ts",
         "./node_modules/preline/dist/*.js",
     ],
+
     safelist: extractColors(),
+
     theme: {
         extend: {},
     },
-    plugins: [], // ✅ EMPTY
+
+    plugins: [require("preline/plugin")],
 };

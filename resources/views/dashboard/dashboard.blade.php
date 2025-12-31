@@ -1,92 +1,159 @@
 @extends('layouts.dashboard')
 
+@section('header_title', '| Dashboard')
+@section('header_description', 'One Unbrella Scheme | Department of Finance | Government of West Bengal')
+
+
+@push('styles')
+    <!-- Optional: Add this CSS for subtle animations -->
+    <style>
+        @keyframes subtle-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+
+            50% {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .stat-card:hover {
+            animation: subtle-glow 2s ease-in-out infinite;
+        }
+    </style>
+@endpush
 @section('content')
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Total Schemes -->
-        <div class="stat-card rounded-2xl p-6 shadow-lg">
+
+        <!-- Total Approved (Till Date) -->
+        <div
+            class="stat-card rounded-2xl p-6 shadow-lg bg-gradient-to-br from-white to-gray-50 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium mb-1">Total Schemes</p>
-                    <h3 class="text-4xl font-bold text-gray-800">13</h3>
+                    <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
+                        Total Approved (Till Date)
+                    </p>
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2">
+                        9,84,562
+                    </h3>
                 </div>
                 <div
-                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
-                    <i class="fas fa-umbrella text-white text-2xl"></i>
+                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-200">
+                    <i class="fas fa-check-circle text-white text-2xl"></i>
                 </div>
             </div>
-            <div class="flex items-center gap-2">
-                <span
-                    class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">
-                    <i class="fas fa-check-circle"></i>
-                    All Active
-                </span>
+            <div class="pt-4 border-t border-gray-100">
+                <div class="flex items-center gap-2 text-sm">
+                    <span
+                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 text-xs font-semibold border border-green-100">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                        <i class="fas fa-shield-check text-green-600"></i>
+                        Verified & Approved
+                    </span>
+                </div>
             </div>
         </div>
 
-        <!-- Applications Today -->
-        <div class="stat-card rounded-2xl p-6 shadow-lg">
+        <!-- Total Application Applied (Till Date) -->
+        <div
+            class="stat-card rounded-2xl p-6 shadow-lg bg-gradient-to-br from-white to-gray-50 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium mb-1">Applications Today</p>
-                    <h3 class="text-4xl font-bold text-gray-800">2,847</h3>
+                    <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
+                        Total Applications Applied (Till Date)
+                    </p>
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2">
+                        12,45,908
+                    </h3>
                 </div>
                 <div
-                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-200">
                     <i class="fas fa-file-alt text-white text-2xl"></i>
                 </div>
             </div>
-            <div class="flex items-center gap-2 text-sm">
-                <span class="text-green-600 font-semibold flex items-center gap-1">
-                    <i class="fas fa-arrow-up"></i>
-                    +12.5%
-                </span>
-                <span class="text-gray-500">from yesterday</span>
+            <div class="pt-4 border-t border-gray-100">
+                <div class="flex items-center gap-2 text-sm">
+                    <span
+                        class="text-blue-600 font-semibold flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100">
+                        <i class="fas fa-layer-group text-blue-500"></i>
+                        Cumulative count
+                        <span class="text-blue-400 ml-1">•</span>
+                        <span class="text-xs font-normal text-blue-500">All time</span>
+                    </span>
+                </div>
             </div>
         </div>
 
-        <!-- Total Beneficiaries -->
-        <div class="stat-card rounded-2xl p-6 shadow-lg">
+        <!-- Total DBT Transfer (Current Month) -->
+        <div
+            class="stat-card rounded-2xl p-6 shadow-lg bg-gradient-to-br from-white to-gray-50 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             <div class="flex justify-between items-start mb-4">
                 <div>
-                    <p class="text-sm text-gray-500 font-medium mb-1">Total Beneficiaries</p>
-                    <h3 class="text-4xl font-bold text-gray-800">1.2M</h3>
+                    <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
+                        Total DBT Transfer (Current Month)
+                    </p>
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2">
+                        ₹356.40 Cr
+                    </h3>
                 </div>
                 <div
-                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-lg">
-                    <i class="fas fa-users text-white text-2xl"></i>
-                </div>
-            </div>
-            <div class="flex items-center gap-2 text-sm">
-                <span class="text-green-600 font-semibold flex items-center gap-1">
-                    <i class="fas fa-arrow-up"></i>
-                    +8.2%
-                </span>
-                <span class="text-gray-500">this month</span>
-            </div>
-        </div>
-
-        <!-- Disbursed Amount -->
-        <div class="stat-card rounded-2xl p-6 shadow-lg">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <p class="text-sm text-gray-500 font-medium mb-1">Disbursed Amount</p>
-                    <h3 class="text-4xl font-bold text-gray-800">₹4,258Cr</h3>
-                </div>
-                <div
-                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
+                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-200">
                     <i class="fas fa-rupee-sign text-white text-2xl"></i>
                 </div>
             </div>
-            <div class="flex items-center gap-2 text-sm">
-                <span class="text-green-600 font-semibold flex items-center gap-1">
-                    <i class="fas fa-arrow-up"></i>
-                    +15.3%
-                </span>
-                <span class="text-gray-500">this quarter</span>
+            <div class="pt-4 border-t border-gray-100">
+                <div class="flex items-center gap-2 text-sm">
+                    <span
+                        class="text-orange-600 font-semibold flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-100">
+                        <div class="relative">
+                            <i class="fas fa-calendar-alt text-orange-500"></i>
+                            <span class="absolute -top-1 -right-1 w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span>
+                        </div>
+                        Current month
+                        <span class="text-orange-400 ml-1">•</span>
+                        <span class="text-xs font-normal text-orange-500">Active</span>
+                    </span>
+                </div>
             </div>
         </div>
+
+        <!-- Total DBT Transfer (Current Financial Year) -->
+        <div
+            class="stat-card rounded-2xl p-6 shadow-lg bg-gradient-to-br from-white to-gray-50 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
+                        Total DBT Transfer (Current FY)
+                    </p>
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2">
+                        ₹4,258.75 Cr
+                    </h3>
+                </div>
+                <div
+                    class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 flex items-center justify-center shadow-lg shadow-purple-200">
+                    <i class="fas fa-chart-line text-white text-2xl"></i>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-gray-100">
+                <div class="flex items-center gap-2 text-sm">
+                    <span
+                        class="text-purple-600 font-semibold flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-50 to-fuchsia-50 border border-purple-100">
+                        <i class="fas fa-calendar-check text-purple-500"></i>
+                        Financial year total
+                        <span class="text-purple-400 ml-1">•</span>
+                        <span class="text-xs font-normal text-purple-500">FY 2023-24</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
+
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
@@ -94,25 +161,37 @@
         <div class="chart-container">
             <div class="flex justify-between items-center mb-6">
                 <div>
-                    <h3 class="text-lg font-bold text-gray-800">Scheme-wise Applications</h3>
-                    <p class="text-sm text-gray-500 mt-1">Last 30 days performance</p>
+                    <h3 class="text-lg font-bold text-gray-800">
+                        Scheme-wise Applications
+                    </h3>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Cumulative performance
+                    </p>
                 </div>
-                <select
+
+                <select id="schemeFilter"
                     class="py-2 px-3 pe-9 block border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
-                    <option>Last 30 days</option>
-                    <option>Last 90 days</option>
-                    <option>Year to date</option>
+                    <option value="all">All Time</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
                 </select>
+
             </div>
+
             <div id="applicationsChart" style="height: 350px;"></div>
         </div>
+
 
         <!-- District-wise Beneficiaries -->
         <div class="chart-container">
             <div class="flex justify-between items-center mb-6">
                 <div>
-                    <h3 class="text-lg font-bold text-gray-800">District Distribution</h3>
-                    <p class="text-sm text-gray-500 mt-1">Top 10 districts by beneficiaries</p>
+                    <h3 class="text-lg font-bold text-gray-800">
+                        District Distribution
+                    </h3>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Top 10 districts by Approved beneficiaries
+                    </p>
                 </div>
                 <button
                     class="py-2 px-3 inline-flex items-center gap-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
@@ -120,8 +199,10 @@
                     View Map
                 </button>
             </div>
+
             <div id="districtChart" style="height: 350px;"></div>
         </div>
+
 
         <!-- Monthly Trends -->
         <div class="chart-container">
@@ -542,179 +623,224 @@
 @endsection
 
 @push('scripts')
+
     <script>
-        // Scheme Applications Chart
-        Highcharts.chart('applicationsChart', {
-            chart: {
-                type: 'column',
-                backgroundColor: 'transparent'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: ['Lakshmir Bhandar', 'Kanyashree', 'Krishak Bandhu', 'Swasthya Sathi', 'Rupashree', 'Sabuj Sathi'],
-                labels: {
-                    rotation: -45,
-                    style: {
-                        fontSize: '11px'
-                    }
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Applications'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                column: {
-                    borderRadius: 8,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y:.0f}'
-                    }
-                }
-            },
-            series: [{
-                name: 'Applications',
-                data: [25400, 18200, 12800, 28500, 8600, 15200],
-                colorByPoint: true,
-                colors: ['#ec4899', '#3b82f6', '#10b981', '#14b8a6', '#a855f7', '#84cc16']
-            }],
-            credits: {
-                enabled: false
-            }
-        });
+        $(document).ready(function () {
 
-        // District Chart
-        Highcharts.chart('districtChart', {
-            chart: {
-                type: 'bar',
-                backgroundColor: 'transparent'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: ['Kolkata', 'North 24 Parganas', 'South 24 Parganas', 'Howrah', 'Hooghly', 'Murshidabad', 'Paschim Bardhaman', 'Purba Bardhaman', 'Nadia', 'Jalpaiguri']
-            },
-            yAxis: {
-                title: {
-                    text: 'Beneficiaries (in thousands)'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 6,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.y}K'
-                    }
-                }
-            },
-            series: [{
-                name: 'Beneficiaries',
-                data: [145, 138, 125, 118, 105, 98, 92, 88, 85, 78],
-                color: {
-                    linearGradient: { x1: 0, x2: 1, y1: 0, y2: 0 },
-                    stops: [
-                        [0, '#667eea'],
-                        [1, '#764ba2']
-                    ]
-                }
-            }],
-            credits: {
-                enabled: false
-            }
-        });
+            loadSchemeWiseApplications('all');
 
-        // Monthly Trends Chart
-        Highcharts.chart('trendsChart', {
-            chart: {
-                type: 'areaspline',
-                backgroundColor: 'transparent'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            },
-            yAxis: {
-                title: {
-                    text: 'Applications (in thousands)'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                areaspline: {
-                    fillColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-                        stops: [
-                            [0, 'rgba(102, 126, 234, 0.3)'],
-                            [1, 'rgba(102, 126, 234, 0.0)']
-                        ]
+            $('#schemeFilter').on('change', function () {
+                let days = $(this).val();
+                loadSchemeWiseApplications(days);
+            });
+
+            function loadSchemeWiseApplications(days) {
+
+                $.ajax({
+                    url: "{{ route('dashboard.schemeWiseApplications') }}",
+                    method: "GET",
+                    data: { days: days },
+                    dataType: "json",
+                    success: function (response) {
+
+                        Highcharts.chart('applicationsChart', {
+                            chart: {
+                                type: 'column',
+                                backgroundColor: 'transparent'
+                            },
+                            title: { text: null },
+                            xAxis: {
+                                categories: response.categories,
+                                labels: {
+                                    rotation: -45,
+                                    style: { fontSize: '11px' }
+                                }
+                            },
+                            yAxis: {
+                                title: { text: 'Applications' }
+                            },
+                            legend: { enabled: false },
+                            plotOptions: {
+                                column: {
+                                    borderRadius: 8,
+                                    dataLabels: {
+                                        enabled: true
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'Applications',
+                                data: response.data,
+                                colorByPoint: true,
+                                colors: [
+                                    '#ec4899', '#3b82f6', '#10b981',
+                                    '#14b8a6', '#a855f7', '#84cc16',
+                                    '#f97316', '#0ea5e9', '#6366f1'
+                                ]
+                            }],
+                            credits: { enabled: false }
+                        });
+                    }
+                });
+            }
+
+
+            loadDistrictWiseBeneficiaries();
+
+            function loadDistrictWiseBeneficiaries() {
+
+                $.ajax({
+                    url: "{{ route('dashboard.districtWiseBeneficiaries') }}",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (response) {
+
+                        Highcharts.chart('districtChart', {
+                            chart: {
+                                type: 'bar',
+                                backgroundColor: 'transparent'
+                            },
+                            title: { text: null },
+                            xAxis: {
+                                categories: response.categories,
+                                title: { text: null }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Beneficiaries'
+                                }
+                            },
+                            legend: { enabled: false },
+                            plotOptions: {
+                                bar: {
+                                    borderRadius: 6,
+                                    dataLabels: {
+                                        enabled: true
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'Beneficiaries',
+                                data: response.data,
+                                color: {
+                                    linearGradient: {
+                                        x1: 0, y1: 0,
+                                        x2: 1, y2: 0
+                                    },
+                                    stops: [
+                                        [0, '#667eea'],
+                                        [1, '#764ba2']
+                                    ]
+                                }
+                            }],
+                            credits: { enabled: false }
+                        });
                     },
-                    lineWidth: 3,
-                    marker: {
-                        enabled: true,
-                        radius: 5
+                    error: function () {
+                        alert('Failed to load district-wise beneficiary data');
                     }
-                }
-            },
-            series: [{
-                name: 'Applications',
-                data: [72, 68, 78, 85, 92, 88, 95, 102, 98, 105, 110, 115],
-                color: '#667eea'
-            }],
-            credits: {
-                enabled: false
+                });
             }
-        });
 
-        // Category Distribution Chart
-        Highcharts.chart('categoryChart', {
-            chart: {
-                type: 'pie',
-                backgroundColor: 'transparent'
-            },
-            title: {
-                text: null
-            },
-            plotOptions: {
-                pie: {
-                    innerSize: '60%',
-                    depth: 45,
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.percentage:.1f}%',
-                        style: {
-                            fontSize: '12px'
+
+        });
+    </script>
+
+
+
+
+
+    <script>
+        // Remove type="module" and use the global Highcharts that's already loaded by app.js
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ensure Highcharts is loaded
+            if (typeof Highcharts === 'undefined') {
+                console.error('Highcharts is not loaded!');
+                return;
+            }
+
+            // Monthly Trends Chart
+            Highcharts.chart('trendsChart', {
+                chart: {
+                    type: 'areaspline',
+                    backgroundColor: 'transparent'
+                },
+                title: {
+                    text: null
+                },
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Applications (in thousands)'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    areaspline: {
+                        fillColor: {
+                            linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                            stops: [
+                                [0, 'rgba(102, 126, 234, 0.3)'],
+                                [1, 'rgba(102, 126, 234, 0.0)']
+                            ]
+                        },
+                        lineWidth: 3,
+                        marker: {
+                            enabled: true,
+                            radius: 5
                         }
                     }
+                },
+                series: [{
+                    name: 'Applications',
+                    data: [72, 68, 78, 85, 92, 88, 95, 102, 98, 105, 110, 115],
+                    color: '#667eea'
+                }],
+                credits: {
+                    enabled: false
                 }
-            },
-            series: [{
-                name: 'Schemes',
-                data: [
-                    { name: 'Women Welfare', y: 30.8, color: '#ec4899' },
-                    { name: 'Student Schemes', y: 23.1, color: '#3b82f6' },
-                    { name: 'Social Security', y: 15.4, color: '#ef4444' },
-                    { name: 'Agriculture', y: 15.4, color: '#10b981' },
-                    { name: 'Health & Medical', y: 15.3, color: '#14b8a6' }
-                ]
-            }],
-            credits: {
-                enabled: false
-            }
+            });
+
+            // Category Distribution Chart
+            Highcharts.chart('categoryChart', {
+                chart: {
+                    type: 'pie',
+                    backgroundColor: 'transparent'
+                },
+                title: {
+                    text: null
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: '60%',
+                        depth: 45,
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f}%',
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Schemes',
+                    data: [
+                        { name: 'Women Welfare', y: 30.8, color: '#ec4899' },
+                        { name: 'Student Schemes', y: 23.1, color: '#3b82f6' },
+                        { name: 'Social Security', y: 15.4, color: '#ef4444' },
+                        { name: 'Agriculture', y: 15.4, color: '#10b981' },
+                        { name: 'Health & Medical', y: 15.3, color: '#14b8a6' }
+                    ]
+                }],
+                credits: {
+                    enabled: false
+                }
+            });
         });
     </script>
 @endpush
