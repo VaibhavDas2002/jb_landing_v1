@@ -8,6 +8,7 @@ use App\Http\Controllers\{
     HomeController,
     MapController
 };
+use Illuminate\Support\Facades\DB;
 
 Route::get('welcome', function () {
     return view('welcome');
@@ -36,6 +37,21 @@ Route::post('/notifications/datatable', [NotificationController::class, 'datatab
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/dashboard/scheme-wise-applications', [DashboardController::class, 'schemeWiseApplications'])->name('dashboard.schemeWiseApplications');
 Route::get('/dashboard/district-wise-beneficiaries', [DashboardController::class, 'districtWiseBeneficiaries'])->name('dashboard.districtWiseBeneficiaries');
+Route::get('/age-distribution', [DashboardController::class, 'getAgeDistribution']);
+Route::get('/dashboard/consolidated-fy-payments', [DashboardController::class, 'consolidatedFyPayments'])->name('dashboard.fy.consolidated');
+
+// routes/web.php or api.php
+Route::get('/chart/scheme-status', function () {
+    return DB::connection('pgsql_app_read_live')->table('home.mv_scheme_status_summary')
+        ->orderBy('scheme_id')
+        ->get();
+});
+Route::post('/dashboard/refresh-scheme-status', function () {
+    DB::connection('pgsql_app_read_live')->statement('REFRESH MATERIALIZED VIEW CONCURRENTLY home.mv_scheme_status_summary');
+    return response()->json(['status' => 'success']);
+})->name('dashboard.refreshSchemeStatus');
+
+
 
 
 Route::get('ben-details/{id}', [BeneficiarySearchController::class, 'ben_details'])->name('ben-details');

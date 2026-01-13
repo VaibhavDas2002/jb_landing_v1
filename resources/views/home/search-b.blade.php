@@ -768,11 +768,11 @@
                 const icon = (type === 'success') ? 'fa-check' : (type === 'info' ? 'fa-info-circle' : 'fa-exclamation-triangle');
 
                 const $toast = $(`
-                                                    <div class="toast-notification fixed bottom-4 right-4 ${bgColor} text-white px-4 py-3 rounded-lg shadow-lg z-50 flex items-center gap-2 animate-fade-in">
-                                                        <i class="fas ${icon}"></i>
-                                                        <span>${message}</span>
-                                                    </div>
-                                                `);
+                                                            <div class="toast-notification fixed bottom-4 right-4 ${bgColor} text-white px-4 py-3 rounded-lg shadow-lg z-50 flex items-center gap-2 animate-fade-in">
+                                                                <i class="fas ${icon}"></i>
+                                                                <span>${message}</span>
+                                                            </div>
+                                                        `);
 
                 if (exists($toastContainer)) {
                     $toastContainer.append($toast);
@@ -817,18 +817,18 @@
 
                 // Header
                 const $resultCount = $(`
-                                                    <div class="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                                        <div class="flex items-center justify-between">
-                                                            <div class="flex items-center gap-2">
-                                                                <i class="fas fa-chart-bar text-blue-600"></i>
-                                                                <span class="font-medium text-blue-800">${data.length} result${data.length !== 1 ? 's' : ''} found</span>
+                                                            <div class="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                                                                <div class="flex items-center justify-between">
+                                                                    <div class="flex items-center gap-2">
+                                                                        <i class="fas fa-chart-bar text-blue-600"></i>
+                                                                        <span class="font-medium text-blue-800">${data.length} result${data.length !== 1 ? 's' : ''} found</span>
+                                                                    </div>
+                                                                    <button class="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 clear-results-btn">
+                                                                        <i class="fas fa-times"></i> Clear Results
+                                                                    </button>
+                                                                </div>
                                                             </div>
-                                                            <button class="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 clear-results-btn">
-                                                                <i class="fas fa-times"></i> Clear Results
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                `);
+                                                        `);
                 $resultsContainer.append($resultCount);
 
                 $resultCount.find('.clear-results-btn').on('click', function () {
@@ -845,181 +845,181 @@
                     const safeIFSC = (b.bank_ifsc || '').replace(/'/g, "\\'");
 
                     const $card = $(`
-                                                        <div class="bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 overflow-hidden group mb-4">
-                                                            <div class="p-6">
-                                                                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 pb-4 border-b border-gray-100">
-                                                                    <div class="flex-1">
-                                                                        <div class="flex flex-wrap items-center gap-3 mb-3">
-                                                                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform">
-                                                                                <i class="fas fa-user text-blue-600 text-lg"></i>
-                                                                            </div>
-                                                                            <div>
-                                                                                <h2 class="text-xl font-bold text-gray-800 group-hover:text-blue-700 transition-colors">
-                                                                                    ${b.full_name || 'Not Available'}
-                                                                                </h2>
-                                                                                <div class="flex items-center gap-2 mt-1">
-                                                                                    <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full flex items-center gap-1">
-                                                                                        <i class="fas fa-id-card text-xs"></i>
-                                                                                        ${window.maskAadhaar(b.aadhar_no)}
-                                                                                    </span>
-                                                                                    ${b.aadhar_no ? `<button class="copy-aadhaar text-gray-400 hover:text-blue-600 transition-colors p-1" title="Copy Aadhaar"><i class="fas fa-copy text-xs"></i></button>` : ''}
+                                                                <div class="bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 overflow-hidden group mb-4">
+                                                                    <div class="p-6">
+                                                                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 pb-4 border-b border-gray-100">
+                                                                            <div class="flex-1">
+                                                                                <div class="flex flex-wrap items-center gap-3 mb-3">
+                                                                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:scale-105 transition-transform">
+                                                                                        <i class="fas fa-user text-blue-600 text-lg"></i>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h2 class="text-xl font-bold text-gray-800 group-hover:text-blue-700 transition-colors">
+                                                                                            ${b.full_name || 'Not Available'}
+                                                                                        </h2>
+                                                                                        <div class="flex items-center gap-2 mt-1">
+                                                                                            <span class="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full flex items-center gap-1">
+                                                                                                <i class="fas fa-id-card text-xs"></i>
+                                                                                                ${window.maskAadhaar(b.aadhar_no)}
+                                                                                            </span>
+                                                                                            ${b.aadhar_no ? `<button class="copy-aadhaar text-gray-400 hover:text-blue-600 transition-colors p-1" title="Copy Aadhaar"><i class="fas fa-copy text-xs"></i></button>` : ''}
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
 
-                                                                        <div class="flex items-center gap-3 text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
-                                                                            <i class="fas fa-mobile-alt text-gray-400"></i>
-                                                                            <span class="font-mono font-medium">${window.maskMobile(b.mobile_no)}</span>
-                                                                            ${b.mobile_no ? `<button class="copy-mobile ml-auto text-gray-400 hover:text-blue-600 transition-colors p-1" title="Copy Mobile"><i class="fas fa-copy text-sm"></i></button>` : ''}
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="flex gap-3">
-                                                                        <button class="timeline-btn inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg active:scale-95">
-                                                                            <i class="fas fa-history"></i><span>Timeline</span>
-                                                                        </button>
-                                                                        <button class="details-btn inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 hover:border-gray-400 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-md active:scale-95">
-                                                                            <i class="fas fa-eye"></i><span>Details</span>
-                                                                        </button>
-
-                                                                        <button class="pdf-btn inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg active:scale-95"
-                                                                            data-benid="${b.ben_id}">
-                                                                            <i class="fas fa-file-pdf"></i><span>PDF</span>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                                                                    <div class="space-y-4">
-                                                                        <div class="flex items-center gap-3 text-gray-700">
-                                                                            <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
-                                                                                <i class="fas fa-map-marker-alt text-blue-600"></i>
-                                                                            </div>
-                                                                            <div>
-                                                                                <h3 class="font-semibold text-gray-800">Location Details</h3>
-                                                                                <p class="text-sm text-gray-500">Address information</p>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="space-y-3 pl-13">
-                                                                            <div class="grid grid-cols-2 gap-3">
-                                                                                <div class="space-y-1">
-                                                                                    <label class="text-xs text-gray-500 font-medium">District</label>
-                                                                                    <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                        <i class="fas fa-building text-gray-400 text-sm"></i>
-                                                                                        ${b.district_name || 'Not Available'}
-                                                                                    </p>
-                                                                                </div>
-                                                                                <div class="space-y-1">
-                                                                                    <label class="text-xs text-gray-500 font-medium">Block/ULB</label>
-                                                                                    <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                        <i class="fas fa-th-large text-gray-400 text-sm"></i>
-                                                                                        ${b.block_ulb_name || 'Not Available'}
-                                                                                    </p>
+                                                                                <div class="flex items-center gap-3 text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
+                                                                                    <i class="fas fa-mobile-alt text-gray-400"></i>
+                                                                                    <span class="font-mono font-medium">${window.maskMobile(b.mobile_no)}</span>
+                                                                                    ${b.mobile_no ? `<button class="copy-mobile ml-auto text-gray-400 hover:text-blue-600 transition-colors p-1" title="Copy Mobile"><i class="fas fa-copy text-sm"></i></button>` : ''}
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="grid grid-cols-2 gap-3">
-                                                                                <div class="space-y-1">
-                                                                                    <label class="text-xs text-gray-500 font-medium">GP/Ward</label>
-                                                                                    <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                        <i class="fas fa-map-pin text-gray-400 text-sm"></i>
-                                                                                        ${b.gp_ward_name || 'Not Available'}
-                                                                                    </p>
-                                                                                </div>
-                                                                                <div class="space-y-1">
-                                                                                    <label class="text-xs text-gray-500 font-medium">Village/Town</label>
-                                                                                    <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                        <i class="fas fa-home text-gray-400 text-sm"></i>
-                                                                                        ${b.village_town_city || 'Not Available'}
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
+                                                                            <div class="flex gap-3">
+                                                                                <button class="timeline-btn inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg active:scale-95">
+                                                                                    <i class="fas fa-history"></i><span>Timeline</span>
+                                                                                </button>
+                                                                                <button class="details-btn inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 hover:border-gray-400 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-md active:scale-95">
+                                                                                    <i class="fas fa-eye"></i><span>Details</span>
+                                                                                </button>
 
-                                                                            <div class="space-y-1">
-                                                                                <label class="text-xs text-gray-500 font-medium">Pincode</label>
-                                                                                <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                    <i class="fas fa-mail-bulk text-gray-400 text-sm"></i>
-                                                                                    ${b.pincode || 'Not Available'}
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="space-y-4">
-                                                                        <div class="flex items-center gap-3 text-gray-700">
-                                                                            <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
-                                                                                <i class="fas fa-university text-green-600"></i>
-                                                                            </div>
-                                                                            <div>
-                                                                                <h3 class="font-semibold text-gray-800">Bank Information</h3>
-                                                                                <p class="text-sm text-gray-500">Account & branch details</p>
+                                                                                <button class="pdf-btn inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg active:scale-95"
+                                                                                    data-benid="${b.ben_id}">
+                                                                                    <i class="fas fa-file-pdf"></i><span>PDF</span>
+                                                                                </button>
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="space-y-3 pl-13">
-                                                                            <div class="space-y-1">
-                                                                                <label class="text-xs text-gray-500 font-medium">Bank Name</label>
-                                                                                <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                    <i class="fas fa-landmark text-gray-400 text-sm"></i>
-                                                                                    ${b.bank_name || 'Not Available'}
-                                                                                </p>
-                                                                            </div>
+                                                                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                                                            <div class="space-y-4">
+                                                                                <div class="flex items-center gap-3 text-gray-700">
+                                                                                    <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                                                                                        <i class="fas fa-map-marker-alt text-blue-600"></i>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h3 class="font-semibold text-gray-800">Location Details</h3>
+                                                                                        <p class="text-sm text-gray-500">Address information</p>
+                                                                                    </div>
+                                                                                </div>
 
-                                                                            <div class="grid grid-cols-2 gap-3">
-                                                                                <div class="space-y-1">
-                                                                                    <label class="text-xs text-gray-500 font-medium">IFSC Code</label>
-                                                                                    <div class="flex items-center gap-2">
+                                                                                <div class="space-y-3 pl-13">
+                                                                                    <div class="grid grid-cols-2 gap-3">
+                                                                                        <div class="space-y-1">
+                                                                                            <label class="text-xs text-gray-500 font-medium">District</label>
+                                                                                            <p class="text-gray-800 font-medium flex items-center gap-2">
+                                                                                                <i class="fas fa-building text-gray-400 text-sm"></i>
+                                                                                                ${b.district_name || 'Not Available'}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="space-y-1">
+                                                                                            <label class="text-xs text-gray-500 font-medium">Block/ULB</label>
+                                                                                            <p class="text-gray-800 font-medium flex items-center gap-2">
+                                                                                                <i class="fas fa-th-large text-gray-400 text-sm"></i>
+                                                                                                ${b.block_ulb_name || 'Not Available'}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="grid grid-cols-2 gap-3">
+                                                                                        <div class="space-y-1">
+                                                                                            <label class="text-xs text-gray-500 font-medium">GP/Ward</label>
+                                                                                            <p class="text-gray-800 font-medium flex items-center gap-2">
+                                                                                                <i class="fas fa-map-pin text-gray-400 text-sm"></i>
+                                                                                                ${b.gp_ward_name || 'Not Available'}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="space-y-1">
+                                                                                            <label class="text-xs text-gray-500 font-medium">Village/Town</label>
+                                                                                            <p class="text-gray-800 font-medium flex items-center gap-2">
+                                                                                                <i class="fas fa-home text-gray-400 text-sm"></i>
+                                                                                                ${b.village_town_city || 'Not Available'}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="space-y-1">
+                                                                                        <label class="text-xs text-gray-500 font-medium">Pincode</label>
                                                                                         <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                            <i class="fas fa-hashtag text-gray-400 text-sm"></i>
-                                                                                            ${b.bank_ifsc || 'Not Available'}
+                                                                                            <i class="fas fa-mail-bulk text-gray-400 text-sm"></i>
+                                                                                            ${b.pincode || 'Not Available'}
                                                                                         </p>
-                                                                                        ${b.bank_ifsc ? `<button class="copy-ifsc text-gray-400 hover:text-green-600 transition-colors p-1" title="Copy IFSC"><i class="fas fa-copy text-xs"></i></button>` : ''}
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="space-y-1">
-                                                                                    <label class="text-xs text-gray-500 font-medium">Account No.</label>
-                                                                                    <div class="flex items-center gap-2">
-                                                                                        <p class="text-gray-800 font-medium font-mono flex items-center gap-2">
-                                                                                            <i class="fas fa-credit-card text-gray-400 text-sm"></i>
-                                                                                            ${window.maskAccountNumber(b.bank_code)}
-                                                                                        </p>
-                                                                                        ${b.bank_code ? `<button class="copy-account text-gray-400 hover:text-green-600 transition-colors p-1" title="Copy Account"><i class="fas fa-copy text-xs"></i></button>` : ''}
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="space-y-1">
-                                                                                <label class="text-xs text-gray-500 font-medium">Branch Name</label>
-                                                                                <p class="text-gray-800 font-medium flex items-center gap-2">
-                                                                                    <i class="fas fa-code-branch text-gray-400 text-sm"></i>
-                                                                                    ${b.branch_name || 'Not Available'}
-                                                                                </p>
+                                                                            <div class="space-y-4">
+                                                                                <div class="flex items-center gap-3 text-gray-700">
+                                                                                    <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                                                                                        <i class="fas fa-university text-green-600"></i>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <h3 class="font-semibold text-gray-800">Bank Information</h3>
+                                                                                        <p class="text-sm text-gray-500">Account & branch details</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="space-y-3 pl-13">
+                                                                                    <div class="space-y-1">
+                                                                                        <label class="text-xs text-gray-500 font-medium">Bank Name</label>
+                                                                                        <p class="text-gray-800 font-medium flex items-center gap-2">
+                                                                                            <i class="fas fa-landmark text-gray-400 text-sm"></i>
+                                                                                            ${b.bank_name || 'Not Available'}
+                                                                                        </p>
+                                                                                    </div>
+
+                                                                                    <div class="grid grid-cols-2 gap-3">
+                                                                                        <div class="space-y-1">
+                                                                                            <label class="text-xs text-gray-500 font-medium">IFSC Code</label>
+                                                                                            <div class="flex items-center gap-2">
+                                                                                                <p class="text-gray-800 font-medium flex items-center gap-2">
+                                                                                                    <i class="fas fa-hashtag text-gray-400 text-sm"></i>
+                                                                                                    ${b.bank_ifsc || 'Not Available'}
+                                                                                                </p>
+                                                                                                ${b.bank_ifsc ? `<button class="copy-ifsc text-gray-400 hover:text-green-600 transition-colors p-1" title="Copy IFSC"><i class="fas fa-copy text-xs"></i></button>` : ''}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="space-y-1">
+                                                                                            <label class="text-xs text-gray-500 font-medium">Account No.</label>
+                                                                                            <div class="flex items-center gap-2">
+                                                                                                <p class="text-gray-800 font-medium font-mono flex items-center gap-2">
+                                                                                                    <i class="fas fa-credit-card text-gray-400 text-sm"></i>
+                                                                                                    ${window.maskAccountNumber(b.bank_code)}
+                                                                                                </p>
+                                                                                                ${b.bank_code ? `<button class="copy-account text-gray-400 hover:text-green-600 transition-colors p-1" title="Copy Account"><i class="fas fa-copy text-xs"></i></button>` : ''}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="space-y-1">
+                                                                                        <label class="text-xs text-gray-500 font-medium">Branch Name</label>
+                                                                                        <p class="text-gray-800 font-medium flex items-center gap-2">
+                                                                                            <i class="fas fa-code-branch text-gray-400 text-sm"></i>
+                                                                                            ${b.branch_name || 'Not Available'}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
 
-                                                                ${b.status ? `
-                                                                <div class="mt-6 pt-5 border-t border-gray-100">
-                                                                    <div class="flex flex-wrap items-center justify-between gap-3">
-                                                                        <div class="flex items-center gap-3">
-                                                                            <span class="px-3 py-1.5 ${getStatusColor(b.status)} text-white text-sm font-medium rounded-full flex items-center gap-2">
-                                                                                <i class="fas ${getStatusIcon(b.status)}"></i>
-                                                                                ${b.status}
-                                                                            </span>
-                                                                            ${b.last_updated ? `<span class="text-sm text-gray-500 flex items-center gap-1"><i class="far fa-clock"></i> Updated: ${window.formatDate(b.last_updated)}</span>` : ''}
+                                                                        ${b.status ? `
+                                                                        <div class="mt-6 pt-5 border-t border-gray-100">
+                                                                            <div class="flex flex-wrap items-center justify-between gap-3">
+                                                                                <div class="flex items-center gap-3">
+                                                                                    <span class="px-3 py-1.5 ${getStatusColor(b.status)} text-white text-sm font-medium rounded-full flex items-center gap-2">
+                                                                                        <i class="fas ${getStatusIcon(b.status)}"></i>
+                                                                                        ${b.status}
+                                                                                    </span>
+                                                                                    ${b.last_updated ? `<span class="text-sm text-gray-500 flex items-center gap-1"><i class="far fa-clock"></i> Updated: ${window.formatDate(b.last_updated)}</span>` : ''}
+                                                                                </div>
+
+                                                                                <button class="view-full-details text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 transition-colors active:scale-95">
+                                                                                    <i class="fas fa-eye"></i> View Full Details
+                                                                                </button>
+                                                                            </div>
                                                                         </div>
-
-                                                                        <button class="view-full-details text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 transition-colors active:scale-95">
-                                                                            <i class="fas fa-eye"></i> View Full Details
-                                                                        </button>
+                                                                        ` : ''}
                                                                     </div>
                                                                 </div>
-                                                                ` : ''}
-                                                            </div>
-                                                        </div>
-                                                    `);
+                                                            `);
 
                     // Attach dataset-bound events for this card
                     $card.find('.timeline-btn').on('click', function () { window.viewTimeline(safeId); });
@@ -1044,16 +1044,16 @@
             // ---------- Add animation CSS if not already present ----------
             if (!$('#animation-styles').length) {
                 const css = `
-                                                    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-                                                    @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(10px); } }
-                                                    .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
-                                                    .animate-fade-out { animation: fadeOut 0.3s ease-out forwards; }
-                                                    .group:hover .group-hover\\:scale-105 { transform: scale(1.05); }
-                                                    .fa-spinner { animation: spin 1s linear infinite; }
-                                                    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-                                                    .animate-shake { animation: shake 0.4s; }
-                                                    @keyframes shake { 10% { transform: translateX(-5px); } 30% { transform: translateX(5px); } 50% { transform: translateX(-5px); } 70% { transform: translateX(5px); } 90% { transform: translateX(0); } }
-                                                `;
+                                                            @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+                                                            @keyframes fadeOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(10px); } }
+                                                            .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+                                                            .animate-fade-out { animation: fadeOut 0.3s ease-out forwards; }
+                                                            .group:hover .group-hover\\:scale-105 { transform: scale(1.05); }
+                                                            .fa-spinner { animation: spin 1s linear infinite; }
+                                                            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+                                                            .animate-shake { animation: shake 0.4s; }
+                                                            @keyframes shake { 10% { transform: translateX(-5px); } 30% { transform: translateX(5px); } 50% { transform: translateX(-5px); } 70% { transform: translateX(5px); } 90% { transform: translateX(0); } }
+                                                        `;
                 $('<style id="animation-styles">').text(css).appendTo('head');
             }
 

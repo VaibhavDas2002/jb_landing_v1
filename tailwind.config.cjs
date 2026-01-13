@@ -56,7 +56,6 @@ module.exports = {
         "./resources/**/*.js",
         "./resources/**/*.vue",
         "./resources/**/*.ts",
-        "./node_modules/preline/dist/*.js",
     ],
 
     safelist: extractColors(),
@@ -65,5 +64,5 @@ module.exports = {
         extend: {},
     },
 
-    plugins: [require("preline/plugin")],
+    plugins: [],
 };

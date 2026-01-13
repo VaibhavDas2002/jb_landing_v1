@@ -188,41 +188,59 @@
     @include('dashboard.components.sidebar')
 
     <!-- Main Content -->
-    <div class="w-full lg:ps-64">
+    <div class="relative min-h-screen w-full lg:ps-64 bg-gray-50">
+
         <div class="p-4 sm:p-6 space-y-6">
 
-            <!-- Header with Mobile Menu Toggle -->
+            <!-- Header -->
             <div class="glass-effect rounded-2xl shadow-xl p-6">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+
+                    <!-- Left Section -->
                     <div class="flex items-center gap-4">
-                        <!-- Mobile Menu Toggle -->
-                        <button type="button" class="lg:hidden -m-2.5 p-2.5 text-gray-700"
+                        <!-- Mobile Sidebar Toggle -->
+                        <button type="button" class="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100"
                             data-hs-overlay="#application-sidebar">
                             <i class="fas fa-bars text-xl"></i>
                         </button>
 
-                        <div>
-                            <h1 class="text-3xl font-bold gradient-text">Jai Bangla Portal @yield('header_title')</h1>
-                            <p class="text-gray-600 mt-1">@yield('header_description')</p>
+                        <!-- Logo + Title -->
+                        <div class="flex items-center gap-4">
+                            <img src="{{ asset('images/biswo_logo.png') }}" class="w-16 sm:w-20 shrink-0"
+                                alt="Jai Bangla Logo">
+
+                            <div>
+                                <h1 class="text-2xl sm:text-3xl font-bold gradient-text leading-tight">
+                                    Jai Bangla Portal
+                                    <span class="block sm:inline">@yield('header_title')</span>
+                                </h1>
+                                <p class="text-gray-600 text-sm sm:text-base mt-1">
+                                    @yield('header_description')
+                                </p>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Right Section -->
                     <div class="flex items-center gap-3">
                         <span
                             class="inline-flex items-center gap-2 py-2 px-4 rounded-full text-sm font-medium bg-green-100 text-green-700">
-                            <span class="w-2 h-2 bg-green-500 rounded-full pulse-animation"></span>
+                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                             Live Portal
                         </span>
-
-
                     </div>
+
                 </div>
             </div>
 
-            @yield('content')
+            <!-- Page Content -->
+            <div class="space-y-6">
+                @yield('content')
+            </div>
 
         </div>
     </div>
+
     <!-- Sidebar Active Link Handler -->
     <script>
         $(document).ready(function () {

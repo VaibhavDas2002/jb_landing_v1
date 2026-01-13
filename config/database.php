@@ -519,6 +519,26 @@ return [
             // 'encrypt' => env('DB_ENCRYPT', 'yes'),
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
+        'pgsql_app_read_live' => [
+            'driver' => 'pgsql',
+            'host' => '172.25.134.171',
+            'port' => '5432',
+            'database' => 'jaibangla',
+            'username' => 'postgres',
+            'password' => 'Jb@sGs#p**t@2020',
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+        'pgsql_pay_read_live' => [
+            'driver' => 'pgsql',
+            'host' => '172.25.134.171',
+            'port' => '5432',
+            'database' => 'jaibangla_payment',
+            'username' => 'postgres',
+            'password' => 'Jb@sGs#p**t@2020',
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
 
     ],
 
