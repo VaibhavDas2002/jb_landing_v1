@@ -14,17 +14,17 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton('elasticsearch', function () {
 
-        $host = config('elasticsearch.host');
-        $username = config('elasticsearch.username');
-        $password = config('elasticsearch.password');
-        $verify = config('elasticsearch.ssl_verification');
+            $host = config('elasticsearch.host');
+            $username = config('elasticsearch.username');
+            $password = config('elasticsearch.password');
+            $verify = config('elasticsearch.ssl_verification');
 
-        return ClientBuilder::create()
-            ->setHosts([$host])
-            ->setBasicAuthentication($username, $password)
-            ->setSSLVerification($verify)
-            ->build();
-    });
+            return ClientBuilder::create()
+                ->setHosts([$host])
+                ->setBasicAuthentication($username, $password)
+                ->setSSLVerification($verify)
+                ->build();
+        });
     }
 
     /**

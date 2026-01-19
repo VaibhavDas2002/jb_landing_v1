@@ -36,8 +36,8 @@
                     <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
                         Total Approved (Till Date)
                     </p>
-                    <h3 class="text-4xl font-bold text-gray-800 mt-2" data-value="{{ $totalApproved }}">
-                       0
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2 stat-number" data-value="{{ $totalApproved }}">
+                        0
                     </h3>
                 </div>
                 <div
@@ -65,7 +65,7 @@
                     <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
                         Total Applications Applied (Till Date)
                     </p>
-                    <h3 class="text-4xl font-bold text-gray-800 mt-2" data-value="{{ $totalApplied }}">
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2 stat-number" data-value="{{ $totalApplied }}">
                         0
                     </h3>
                 </div>
@@ -95,7 +95,8 @@
                     <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
                         Total DBT Transfer (Current Month)
                     </p>
-                    <h3 class="text-4xl font-bold text-gray-800 mt-2"  data-value="{{ $totalPayCurMonth }} ">
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2 stat-number" data-value="{{ $totalPayCurMonth }}"
+                        data-money="true">
                         ₹ 0
                     </h3>
                 </div>
@@ -128,7 +129,8 @@
                     <p class="text-sm text-gray-500 font-medium mb-1 tracking-wide">
                         Total DBT Transfer (Current FY)
                     </p>
-                    <h3 class="text-4xl font-bold text-gray-800 mt-2"  data-value="{{ $totalPayCurYear }}">
+                    <h3 class="text-4xl font-bold text-gray-800 mt-2 stat-number" data-value="{{ $totalPayCurYear }}"
+                        data-money="true">
                         ₹ 0
                     </h3>
                 </div>
@@ -267,8 +269,8 @@
 
                 <button id="refreshSchemeStatus"
                     class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg
-                                                                                                                       bg-blue-600 text-white hover:bg-blue-700
-                                                                                                                       disabled:opacity-50 disabled:cursor-not-allowed">
+                                                                                                                                                   bg-blue-600 text-white hover:bg-blue-700
+                                                                                                                                                   disabled:opacity-50 disabled:cursor-not-allowed">
                     <i class="fas fa-sync-alt"></i>
                     Refresh
                 </button>
@@ -306,7 +308,62 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(document).ready(function () {
 
+            function formatIndianNumber(num) {
+                return num.toLocaleString('en-IN');
+            }
+
+            function getIndianSuffix(num) {
+                if (num >= 10000000) {
+                    return { value: num / 10000000, suffix: ' Cr' };
+                }
+                if (num >= 100000) {
+                    return { value: num / 100000, suffix: ' Lakh' };
+                }
+                return { value: num, suffix: '' };
+            }
+
+            function animateCounter($el, duration = 1500) {
+                let target = parseFloat($el.data('value')) || 0;
+                let isMoney = $el.data('money') === true;
+                let startTime = null;
+
+                let suffixData = getIndianSuffix(target);
+                let finalValue = suffixData.value;
+                let suffix = suffixData.suffix;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+
+                    let progress = Math.min((timestamp - startTime) / duration, 1);
+                    let current = finalValue * progress;
+
+                    let displayValue = suffix
+                        ? current.toFixed(2)
+                        : Math.floor(current);
+
+                    $el.text(
+                        (isMoney ? '₹ ' : '') +
+                        formatIndianNumber(Number(displayValue)) +
+                        suffix
+                    );
+
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                }
+
+                window.requestAnimationFrame(step);
+            }
+
+            $('.stat-number').each(function () {
+                animateCounter($(this));
+            });
+
+        });
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -381,39 +438,39 @@
                             }
 
                             tbody += `
-                                                                                                                                                                <tr class="hover:bg-gray-50">
-                                                                                                                                                                    <td class="px-4 py-3 font-medium text-gray-800">
-                                                                                                                                                                        ${row.scheme_name}
-                                                                                                                                                                    </td>
-                                                                                                                                                                    <td class="px-4 py-3 text-right">${entry}</td>
-                                                                                                                                                                    <td class="px-4 py-3 text-right">${verified}</td>
-                                                                                                                                                                    <td class="px-4 py-3 text-right font-semibold text-green-600">${approved}</td>
-                                                                                                                                                                    <td class="px-4 py-3 text-right">${recommended}</td>
-                                                                                                                                                                    <td class="px-4 py-3 text-right text-red-500">${rejected}</td>
-                                                                                                                                                                </tr>
-                                                                                                                                                            `;
+                                                                                                                                                                                                <tr class="hover:bg-gray-50">
+                                                                                                                                                                                                    <td class="px-4 py-3 font-medium text-gray-800">
+                                                                                                                                                                                                        ${row.scheme_name}
+                                                                                                                                                                                                    </td>
+                                                                                                                                                                                                    <td class="px-4 py-3 text-right">${entry}</td>
+                                                                                                                                                                                                    <td class="px-4 py-3 text-right">${verified}</td>
+                                                                                                                                                                                                    <td class="px-4 py-3 text-right font-semibold text-green-600">${approved}</td>
+                                                                                                                                                                                                    <td class="px-4 py-3 text-right">${recommended}</td>
+                                                                                                                                                                                                    <td class="px-4 py-3 text-right text-red-500">${rejected}</td>
+                                                                                                                                                                                                </tr>
+                                                                                                                                                                                            `;
                         });
 
                         if (!hasData) {
                             tbody = `
-                                                                                                                                                                <tr>
-                                                                                                                                                                    <td colspan="6" class="px-4 py-6 text-center text-gray-400">
-                                                                                                                                                                        No data available
-                                                                                                                                                                    </td>
-                                                                                                                                                                </tr>
-                                                                                                                                                            `;
+                                                                                                                                                                                                <tr>
+                                                                                                                                                                                                    <td colspan="6" class="px-4 py-6 text-center text-gray-400">
+                                                                                                                                                                                                        No data available
+                                                                                                                                                                                                    </td>
+                                                                                                                                                                                                </tr>
+                                                                                                                                                                                            `;
                         }
 
                         $('#schemeStatusTbody').html(tbody);
                     },
                     error: function () {
                         $('#schemeStatusTbody').html(`
-                                                                                                                                                            <tr>
-                                                                                                                                                                <td colspan="6" class="px-4 py-6 text-center text-red-500">
-                                                                                                                                                                    Failed to load scheme status data
-                                                                                                                                                                </td>
-                                                                                                                                                            </tr>
-                                                                                                                                                        `);
+                                                                                                                                                                                            <tr>
+                                                                                                                                                                                                <td colspan="6" class="px-4 py-6 text-center text-red-500">
+                                                                                                                                                                                                    Failed to load scheme status data
+                                                                                                                                                                                                </td>
+                                                                                                                                                                                            </tr>
+                                                                                                                                                                                        `);
                     }
                 });
             }
@@ -681,69 +738,8 @@
 
         });
     </script>
-    <script>
-    function formatIndianNumber(num) {
-        return num.toLocaleString('en-IN');
-    }
 
-    function getIndianSuffix(num) {
-        if (num >= 10000000) {
-            return {
-                value: num / 10000000,
-                suffix: ' Cr'
-            };
-        } else if (num >= 100000) {
-            return {
-                value: num / 100000,
-                suffix: ' Lakh'
-            };
-        }
-        return {
-            value: num,
-            suffix: ''
-        };
-    }
 
-    function animateCounter(el, duration = 1500) {
-        const target = parseFloat(el.dataset.value);
-        const isMoney = el.dataset.money === "true";
-        const start = 0;
-        const startTime = performance.now();
-
-        const { value, suffix } = getIndianSuffix(target);
-
-        function update(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const currentValue = value * progress;
-
-            let displayValue;
-
-            if (suffix) {
-                displayValue = currentValue.toFixed(2);
-            } else {
-                displayValue = Math.floor(currentValue);
-            }
-
-            el.innerText =
-                (isMoney ? '₹ ' : '') +
-                formatIndianNumber(Number(displayValue)) +
-                suffix;
-
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
-        }
-
-        requestAnimationFrame(update);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.stat-number').forEach(el => {
-            animateCounter(el);
-        });
-    });
-</script>
 
 
 @endpush

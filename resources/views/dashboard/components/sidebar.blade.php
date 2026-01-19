@@ -8,6 +8,7 @@
     class="sidebar fixed top-0 start-0 bottom-0 z-[60] w-64 bg-gray-900 border-e border-gray-700 pt-7 pb-10 overflow-y-auto lg:translate-x-0 lg:end-auto lg:bottom-0 transition-all duration-300 transform -translate-x-full lg:translate-x-0">
 
     <!-- Logo Section -->
+     <a href="{{ route('/') }}" class="block hover:text-white">
     <div class="px-6 mb-8">
         <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-br from-blue-500 to-indigo-600">

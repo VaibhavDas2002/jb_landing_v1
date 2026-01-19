@@ -4,7 +4,7 @@ return [
 
     // credentials
     'username' => env('ELASTICSEARCH_USERNAME', 'elastic'),
-    'password' => env('ELASTICSEARCH_PASSWORD', 'Yy69IQuvVGCmGWH4vpFw'),
+    'password' => env('ELASTICSEARCH_PASSWORD', 'r4ovhToSkXgr40H5Fdc5'),
 
     'ssl_verification' => false,  // required for Windows self-signed cert
 ];

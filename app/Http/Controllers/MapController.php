@@ -19,7 +19,7 @@ class MapController extends Controller
 
     public function wbDistrictCount(Request $request)
     {
-        return DB::connection('pgsql_app_read_live')->table('pension.beneficiaries')
+        return DB::connection('pgsql_app_read')->table('pension.beneficiaries')
             ->select('created_by_dist_code as district_code', DB::raw('count(*) total'))
             ->where('next_level_role_id', '=', 0)
             ->groupBy('district_code')

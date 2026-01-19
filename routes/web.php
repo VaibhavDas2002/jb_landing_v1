@@ -42,12 +42,12 @@ Route::get('/dashboard/consolidated-fy-payments', [DashboardController::class, '
 
 // routes/web.php or api.php
 Route::get('/chart/scheme-status', function () {
-    return DB::connection('pgsql_app_read_live')->table('home.mv_scheme_status_summary')
+    return DB::connection('pgsql_app_read')->table('home.mv_scheme_status_summary')
         ->orderBy('scheme_id')
         ->get();
 });
 Route::post('/dashboard/refresh-scheme-status', function () {
-    DB::connection('pgsql_app_read_live')->statement('REFRESH MATERIALIZED VIEW CONCURRENTLY home.mv_scheme_status_summary');
+    DB::connection('pgsql_app_read')->statement('REFRESH MATERIALIZED VIEW CONCURRENTLY home.mv_scheme_status_summary');
     return response()->json(['status' => 'success']);
 })->name('dashboard.refreshSchemeStatus');
 

@@ -40,13 +40,9 @@ class BenEntry extends Model
                   'block_ulb_code' => $this->block_ulb_code,
                   'gp_ward_code' => $this->gp_ward_code,
                   'next_level_role_id' => $this->next_level_role_id,
-                  'dup_bank' => $this->dup_bank,
-                  'dup_mobile' => $this->dup_mobile,
-                  'dup_aadhar' => $this->dup_aadhar,
-                  'no_aadhar' => $this->no_aadhar,
-                  'no_mobile' => $this->no_mobile,
-                  'is_bank_failed' => $this->is_bank_failed,
-                  'pay_validated' => $this->pay_validated
+                  'created_at' => $this->created_at,
+                  'updated_at' => $this->updated_at,
+                  // 'scheme_name' =
             ];
       }
 

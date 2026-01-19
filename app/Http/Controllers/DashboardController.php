@@ -14,9 +14,37 @@ class DashboardController extends Controller
         $financialYear = Helper::getCurrentFinancialYearIndia();
 
         // ✅ Counts
-        $totalApproved = DB::connection('pgsql_app_read_live')->table('pension.beneficiaries')->where('next_level_role_id', 0)->count();
+        // $totalApproved = DB::connection('pgsql_app_read')->table('pension.beneficiaries')->where('next_level_role_id', 0)->count();
 
-        $totalApplied = DB::connection('pgsql_app_read_live')->table('pension.beneficiaries')->where('next_level_role_id', '>=', 0)->count();
+        // $totalApproved = DB::connection('pgsql_app_read')->table('pension.beneficiaries')->where('next_level_role_id', 0)->count();
+
+
+        // $totalApplied = DB::connection('pgsql_app_read')->table('pension.beneficiaries')->where('next_level_role_id', '>=', 0)->count();
+
+        $client = app('elasticsearch');
+
+        $totalApproved = $client->count([
+            'index' => 'beneficiaries',
+            'body' => [
+                'query' => [
+                    'term' => [
+                        'next_level_role_id' => 0
+                    ]
+                ]
+            ]
+        ])['count'];
+        // dd($totalApproved);
+
+        $totalApplied = $client->count([
+            'index' => 'beneficiaries',
+            'body' => [
+                'query' => [
+                    'range' => [
+                        'next_level_role_id' => ['gte' => 0]
+                    ]
+                ]
+            ]
+        ])['count'];
 
 
         $curMonthInt = (int) date('n');
@@ -27,7 +55,7 @@ class DashboardController extends Controller
         // e.g. apr_payment_amount
 
         // ✅ Current Month Total Payment
-        $totalPayCurMonth = DB::connection('pgsql_pay_read_live')
+        $totalPayCurMonth = DB::connection('pgsql_pay_read')
             ->table('payment.ben_transaction_details')
             ->selectRaw("COALESCE(SUM($monthPayColumn), 0) AS total")
             ->where('fin_year', $financialYear)
@@ -35,7 +63,7 @@ class DashboardController extends Controller
 
         // ✅ Current Financial Year Consolidated Payment
         // ✅ Financial Year Consolidated (month-wise)
-        $totalPayCurYearRow = DB::connection('pgsql_pay_read_live')
+        $totalPayCurYearRow = DB::connection('pgsql_pay_read')
             ->table('payment.ben_transaction_details')
             ->selectRaw("
         COALESCE(SUM(apr_payment_amount),0) AS apr,
@@ -80,94 +108,133 @@ class DashboardController extends Controller
     }
     public function schemeWiseApplications(Request $request)
     {
-        $days = $request->get('days'); // 30 / 90 / all
+        $days = $request->get('days');
 
-        $dateCondition = "";
-        if (!empty($days) && $days !== 'all') {
-            $dateCondition = " AND a.created_at >= (CURRENT_DATE - INTERVAL '{$days} days')";
+        $must = [
+            ['range' => ['next_level_role_id' => ['gte' => 0]]]
+        ];
+
+        if ($days && $days !== 'all') {
+            $must[] = [
+                'range' => [
+                    'created_at' => [
+                        'gte' => "now-{$days}d/d"
+                    ]
+                ]
+            ];
         }
 
-        $rows = DB::connection('pgsql_app_read_live')->select("
-        SELECT 
-            a.scheme_id,
-            b.scheme_name,
-            COUNT(1) AS total
-        FROM pension.beneficiaries a
-        JOIN public.m_scheme b ON a.scheme_id = b.id
-        WHERE a.next_level_role_id >= 0
-        {$dateCondition}
-        GROUP BY a.scheme_id, b.scheme_name
-        ORDER BY b.scheme_name
-    ");
+        $response = app('elasticsearch')->search([
+            'index' => 'beneficiaries',
+            'size' => 0,
+            'body' => [
+                'query' => ['bool' => ['must' => $must]],
+                'aggs' => [
+                    'scheme_wise' => [
+                        'terms' => [
+                            'field' => 'scheme_id',
+                            'size' => 50
+                        ]
+                    ]
+                ]
+            ]
+        ]);
 
         $categories = [];
         $data = [];
 
-        foreach ($rows as $row) {
-            $categories[] = $row->scheme_name;
-            $data[] = (int) $row->total;
+        foreach ($response['aggregations']['scheme_wise']['buckets'] as $bucket) {
+            $categories[] = 'Scheme ' . $bucket['key'];
+            $data[] = $bucket['doc_count'];
         }
 
-        return response()->json([
-            'categories' => $categories,
-            'data' => $data
-        ]);
+        return response()->json(compact('categories', 'data'));
     }
+
 
     public function districtWiseBeneficiaries()
     {
-        $rows = DB::connection('pgsql_app_read_live')->select("
-        SELECT 
-            b.district_code,
-            b.district_name,
-            COUNT(1) AS total
-        FROM pension.beneficiaries a
-        JOIN public.m_district b 
-            ON a.created_by_dist_code = b.district_code
-        WHERE a.next_level_role_id = 0
-        GROUP BY b.district_code, b.district_name
-        ORDER BY total DESC
-    ");
+        $response = app('elasticsearch')->search([
+            'index' => 'beneficiaries',
+            'size' => 0,
+            'body' => [
+                'query' => [
+                    'term' => [
+                        'next_level_role_id' => 0
+                    ]
+                ],
+                'aggs' => [
+                    'districts' => [
+                        'terms' => [
+                            'field' => 'district_name',
+                            'size' => 50,
+                            'order' => ['_count' => 'desc']
+                        ]
+                    ]
+                ]
+            ]
+        ]);
 
         $categories = [];
         $data = [];
 
-        foreach ($rows as $row) {
-            $categories[] = $row->district_name;
-            $data[] = (int) $row->total;
+        foreach ($response['aggregations']['districts']['buckets'] as $bucket) {
+            $categories[] = $bucket['key'];
+            $data[] = $bucket['doc_count'];
         }
 
-        return response()->json([
-            'categories' => $categories,
-            'data' => $data
-        ]);
+        return response()->json(compact('categories', 'data'));
     }
+
 
     public function getAgeDistribution()
     {
-        $data = DB::connection('pgsql_app_read_live')->selectOne("
-        SELECT
-            SUM(CASE WHEN age < 18 THEN 1 ELSE 0 END) AS age_0_18,
-            SUM(CASE WHEN age BETWEEN 18 AND 29 THEN 1 ELSE 0 END) AS age_18_30,
-            SUM(CASE WHEN age BETWEEN 30 AND 44 THEN 1 ELSE 0 END) AS age_30_45,
-            SUM(CASE WHEN age BETWEEN 45 AND 59 THEN 1 ELSE 0 END) AS age_45_60,
-            SUM(CASE WHEN age >= 60 THEN 1 ELSE 0 END) AS age_60_plus
-        FROM (
-            SELECT DATE_PART('year', AGE(CURRENT_DATE, dob)) AS age
-            FROM pension.beneficiaries
-            WHERE next_level_role_id >= 0
-              AND dob IS NOT NULL
-        ) t
-    ");
+        $response = app('elasticsearch')->search([
+            'index' => 'beneficiaries',
+            'size' => 0,
+            'body' => [
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            ['range' => ['next_level_role_id' => ['gte' => 0]]],
+                            ['exists' => ['field' => 'dob']]
+                        ]
+                    ]
+                ],
+                'aggs' => [
+                    'age_ranges' => [
+                        'range' => [
+                            'script' => ['source' => "(new Date().getTime() - doc['dob'].value.toInstant().toEpochMilli())/1000/60/60/24/365"],
+                            'ranges' => [
+                                ['to' => 18],
+                                ['from' => 18, 'to' => 30],
+                                ['from' => 30, 'to' => 45],
+                                ['from' => 45, 'to' => 60],
+                                ['from' => 60]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]);
 
-        return response()->json($data);
+        $buckets = $response['aggregations']['age_ranges']['buckets'];
+
+        return response()->json([
+            'age_0_18' => $buckets[0]['doc_count'],
+            'age_18_30' => $buckets[1]['doc_count'],
+            'age_30_45' => $buckets[2]['doc_count'],
+            'age_45_60' => $buckets[3]['doc_count'],
+            'age_60_plus' => $buckets[4]['doc_count'],
+        ]);
     }
+
 
     public function consolidatedFyPayments(Request $request)
     {
         $finYear = $request->get('fin_year'); // e.g. 2025-2026
 
-        $data = DB::connection('pgsql_pay_read_live')->table('payment.ben_transaction_details')
+        $data = DB::connection('pgsql_pay_read')->table('payment.ben_transaction_details')
             ->selectRaw("
                 COALESCE(SUM(apr_payment_amount),0) AS apr,
                 COALESCE(SUM(may_payment_amount),0) AS may,
